@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initMobileMenu();
   initBusinessStatus();
   initHeroCarousel();
+  initGallerySlider();
   initGalleryLightbox();
   initRevealAnimations();
   initCurrentYear();
@@ -163,6 +164,38 @@ function initHeroCarousel() {
   carousel.addEventListener('mouseenter', stopAuto);
   carousel.addEventListener('mouseleave', startAuto);
   startAuto();
+}
+
+function initGallerySlider() {
+  const track = document.getElementById('gallery-track');
+  const prevBtn = document.getElementById('gallery-prev');
+  const nextBtn = document.getElementById('gallery-next');
+  if (!track || !prevBtn || !nextBtn) return;
+
+  const getStep = () => {
+    const firstCard = track.querySelector('.gallery-card');
+    if (!firstCard) return 360;
+    const style = window.getComputedStyle(track);
+    const gap = parseFloat(style.columnGap || style.gap || '24');
+    return firstCard.getBoundingClientRect().width + gap;
+  };
+
+  prevBtn.addEventListener('click', () => {
+    if (track.scrollLeft <= 4) {
+      track.scrollTo({ left: track.scrollWidth, behavior: 'smooth' });
+    } else {
+      track.scrollBy({ left: -getStep(), behavior: 'smooth' });
+    }
+  });
+
+  nextBtn.addEventListener('click', () => {
+    const maxScroll = track.scrollWidth - track.clientWidth - 4;
+    if (track.scrollLeft >= maxScroll) {
+      track.scrollTo({ left: 0, behavior: 'smooth' });
+    } else {
+      track.scrollBy({ left: getStep(), behavior: 'smooth' });
+    }
+  });
 }
 
 function initGalleryLightbox() {
