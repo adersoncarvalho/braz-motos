@@ -1,0 +1,120 @@
+document.addEventListener('DOMContentLoaded', () => {
+  initThemeToggle();
+  initNavbarScroll();
+  initMobileMenu();
+  initBusinessStatus();
+  initRevealAnimations();
+  initCurrentYear();
+});
+
+function initThemeToggle() {
+  const root = document.documentElement;
+  const toggleBtn = document.getElementById('theme-toggle');
+  const savedTheme = localStorage.getItem('braz-motos-theme');
+
+  if (savedTheme === 'light' || savedTheme === 'dark') {
+    root.setAttribute('data-theme', savedTheme);
+  }
+
+  if (!toggleBtn) return;
+
+  toggleBtn.addEventListener('click', () => {
+    const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+    const next = current === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem('braz-motos-theme', next);
+  });
+}
+
+function initNavbarScroll() {
+  const navbar = document.getElementById('navbar');
+  if (!navbar) return;
+
+  const onScroll = () => {
+    navbar.classList.toggle('is-scrolled', window.scrollY > 20);
+  };
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+}
+
+function initMobileMenu() {
+  const toggleBtn = document.getElementById('menu-toggle');
+  const navLinks = document.getElementById('nav-links');
+  if (!toggleBtn || !navLinks) return;
+
+  const closeMenu = () => {
+    navLinks.classList.remove('is-open');
+    toggleBtn.setAttribute('aria-expanded', 'false');
+  };
+
+  toggleBtn.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('is-open');
+    toggleBtn.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  navLinks.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeMenu();
+  });
+}
+
+function initBusinessStatus() {
+  const statusPill = document.getElementById('status-pill');
+  const statusText = document.getElementById('status-text');
+  if (!statusPill || !statusText) return;
+
+  const now = new Date();
+  const day = now.getDay();
+  const minutes = now.getHours() * 60 + now.getMinutes();
+
+  let isOpen = false;
+  if (day >= 1 && day <= 5) {
+    isOpen = minutes >= 8 * 60 && minutes < 18 * 60;
+  } else if (day === 6) {
+    isOpen = minutes >= 8 * 60 && minutes < 12 * 60;
+  }
+
+  statusPill.classList.remove('is-open', 'is-closed');
+  if (isOpen) {
+    statusPill.classList.add('is-open');
+    statusText.textContent = 'Aberto agora';
+  } else {
+    statusPill.classList.add('is-closed');
+    statusText.textContent = 'Fechado no momento • Agende pelo WhatsApp';
+  }
+}
+
+function initRevealAnimations() {
+  const elements = document.querySelectorAll('.reveal');
+  if (!elements.length) return;
+
+  if (!('IntersectionObserver' in window)) {
+    elements.forEach((el) => el.classList.add('is-visible'));
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12, rootMargin: '0px 0px -30px 0px' }
+  );
+
+  elements.forEach((el) => observer.observe(el));
+}
+
+function initCurrentYear() {
+  const yearEl = document.getElementById('current-year');
+  if (yearEl) {
+    yearEl.textContent = String(new Date().getFullYear());
+  }
+}
