@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavbarScroll();
   initMobileMenu();
   initBusinessStatus();
+  initHeroCarousel();
   initGalleryLightbox();
   initRevealAnimations();
   initCurrentYear();
@@ -125,6 +126,43 @@ function initRevealAnimations() {
   );
 
   elements.forEach((el) => observer.observe(el));
+}
+
+function initHeroCarousel() {
+  const carousel = document.getElementById('hero-carousel');
+  if (!carousel) return;
+
+  const slides = Array.from(carousel.querySelectorAll('.hero-carousel__slide'));
+  const dots = Array.from(carousel.querySelectorAll('.hero-carousel__dot'));
+  const prevBtn = carousel.querySelector('.hero-carousel__btn--prev');
+  const nextBtn = carousel.querySelector('.hero-carousel__btn--next');
+  if (slides.length < 2) return;
+
+  let current = 0;
+  let timer = null;
+
+  const goTo = (index) => {
+    current = (index + slides.length) % slides.length;
+    slides.forEach((s, i) => s.classList.toggle('is-active', i === current));
+    dots.forEach((d, i) => d.classList.toggle('is-active', i === current));
+  };
+
+  const startAuto = () => {
+    stopAuto();
+    timer = setInterval(() => goTo(current + 1), 4500);
+  };
+
+  const stopAuto = () => {
+    if (timer) clearInterval(timer);
+  };
+
+  if (prevBtn) prevBtn.addEventListener('click', () => { goTo(current - 1); startAuto(); });
+  if (nextBtn) nextBtn.addEventListener('click', () => { goTo(current + 1); startAuto(); });
+  dots.forEach((dot, i) => dot.addEventListener('click', () => { goTo(i); startAuto(); }));
+
+  carousel.addEventListener('mouseenter', stopAuto);
+  carousel.addEventListener('mouseleave', startAuto);
+  startAuto();
 }
 
 function initGalleryLightbox() {

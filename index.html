@@ -126,6 +126,12 @@
           <div class="hero__highlights">
             <div class="highlight-item">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>+7 Anos de Mercado</span>
+            </div>
+            <div class="highlight-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               <span>Orçamento Transparente</span>
@@ -150,12 +156,31 @@
         <div class="hero__visual reveal">
           <div class="hero-card">
             <div class="hero-card__header">
-              <span class="hero-card__tag">BRAZ MOTOS • MARINGÁ</span>
+              <span class="hero-card__tag">BRAZ MOTOS • +7 ANOS EM MARINGÁ</span>
               <span class="hero-card__pulse"></span>
             </div>
 
-            <div class="hero-card__emblem">
-              <img class="hero-card__logo-img" src="assets/logo-braz-motos.jpg" alt="Braz Motos - Peças e Manutenção com a qualidade que você precisa" />
+            <div class="hero-card__emblem hero-carousel" id="hero-carousel" aria-label="Galeria em destaque da Braz Motos">
+              <div class="hero-carousel__slides">
+                <div class="hero-carousel__slide is-active">
+                  <img class="hero-card__logo-img" src="assets/logo-braz-motos.jpg" alt="Braz Motos - Peças e Manutenção com a qualidade que você precisa" />
+                </div>
+                <div class="hero-carousel__slide">
+                  <img class="hero-carousel__photo" src="assets/oficina-01.jpg" alt="Oficina e loja Braz Motos com lubrificantes e peças em Maringá" />
+                </div>
+                <div class="hero-carousel__slide">
+                  <img class="hero-carousel__photo" src="assets/inauguracao-02.jpg" alt="Fachada da Braz Motos na inauguração há mais de 7 anos em Maringá" />
+                </div>
+              </div>
+
+              <button type="button" class="hero-carousel__btn hero-carousel__btn--prev" aria-label="Foto anterior">‹</button>
+              <button type="button" class="hero-carousel__btn hero-carousel__btn--next" aria-label="Próxima foto">›</button>
+
+              <div class="hero-carousel__dots" aria-label="Selecionar foto">
+                <button type="button" class="hero-carousel__dot is-active" aria-label="Slide 1"></button>
+                <button type="button" class="hero-carousel__dot" aria-label="Slide 2"></button>
+                <button type="button" class="hero-carousel__dot" aria-label="Slide 3"></button>
+              </div>
             </div>
 
             <div class="hero-card__stats">
@@ -307,7 +332,7 @@
             </div>
             <div>
               <h3>Atendimento Especializado</h3>
-              <p>Equipe qualificada que entende a mecânica da sua moto e explica cada etapa do serviço com clareza.</p>
+              <p>Há mais de 7 anos no mercado, com mecânicos de vasta experiência que explicam cada etapa do serviço com clareza.</p>
             </div>
           </div>
 
@@ -386,6 +411,31 @@
             <figcaption class="gallery-card__caption">
               <strong>Loja e Oficina na Zona 20</strong>
               <span>Lubrificantes, peças e atendimento especializado</span>
+            </figcaption>
+          </figure>
+
+          <figure class="gallery-card reveal">
+            <button
+              type="button"
+              class="gallery-card__trigger"
+              data-full="assets/inauguracao-02.jpg"
+              data-caption="Inauguração da Braz Motos — há mais de 7 anos no mercado com mecânicos de vasta experiência em Maringá."
+              aria-label="Ampliar foto da inauguração da Braz Motos"
+            >
+              <img
+                src="assets/inauguracao-02.jpg"
+                alt="Fachada da Braz Motos no dia da inauguração com motos estacionadas em frente à oficina"
+                loading="lazy"
+              />
+              <span class="gallery-card__zoom" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16zm0-11v6m-3-3h6" />
+                </svg>
+              </span>
+            </button>
+            <figcaption class="gallery-card__caption">
+              <strong>Mais de 7 Anos de História</strong>
+              <span>Desde a inauguração, tradição e mecânicos experientes</span>
             </figcaption>
           </figure>
         </div>
