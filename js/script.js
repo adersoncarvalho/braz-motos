@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavbarScroll();
   initMobileMenu();
   initBusinessStatus();
+  initGalleryLightbox();
   initRevealAnimations();
   initCurrentYear();
 });
@@ -124,6 +125,49 @@ function initRevealAnimations() {
   );
 
   elements.forEach((el) => observer.observe(el));
+}
+
+function initGalleryLightbox() {
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const lightboxCaption = document.getElementById('lightbox-caption');
+  const closeBtn = document.getElementById('lightbox-close');
+  const triggers = document.querySelectorAll('.gallery-card__trigger');
+
+  if (!lightbox || !lightboxImg || !lightboxCaption || !triggers.length) return;
+
+  const closeLightbox = () => {
+    lightbox.hidden = true;
+    lightboxImg.src = '';
+    document.body.style.overflow = '';
+  };
+
+  triggers.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const src = btn.getAttribute('data-full');
+      const caption = btn.getAttribute('data-caption') || '';
+      const imgEl = btn.querySelector('img');
+      if (!src) return;
+
+      lightboxImg.src = src;
+      lightboxImg.alt = imgEl ? imgEl.alt : caption;
+      lightboxCaption.textContent = caption;
+      lightbox.hidden = false;
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeLightbox);
+  }
+
+  lightbox.addEventListener('click', (event) => {
+    if (event.target === lightbox) closeLightbox();
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && !lightbox.hidden) closeLightbox();
+  });
 }
 
 function initCurrentYear() {
