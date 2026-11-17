@@ -865,9 +865,8 @@ svg {
 
 .gallery__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 520px));
-  justify-content: center;
-  gap: 1.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
 }
 
 .gallery-card {
