@@ -10,11 +10,25 @@ document.addEventListener('DOMContentLoaded', () => {
 function initThemeToggle() {
   const root = document.documentElement;
   const toggleBtn = document.getElementById('theme-toggle');
+  const mediaQuery = window.matchMedia('(prefers-color-scheme: light)');
   const savedTheme = localStorage.getItem('braz-motos-theme');
+
+  const applySystemTheme = (isLight) => {
+    root.setAttribute('data-theme', isLight ? 'light' : 'dark');
+  };
 
   if (savedTheme === 'light' || savedTheme === 'dark') {
     root.setAttribute('data-theme', savedTheme);
+  } else {
+    applySystemTheme(mediaQuery.matches);
   }
+
+  // Atualiza automaticamente se o tema do Windows/navegador mudar (quando não houver escolha manual salva)
+  mediaQuery.addEventListener('change', (event) => {
+    if (!localStorage.getItem('braz-motos-theme')) {
+      applySystemTheme(event.matches);
+    }
+  });
 
   if (!toggleBtn) return;
 

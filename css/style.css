@@ -6,9 +6,6 @@
   --accent-hover: #ff6726;
   --accent-glow: rgba(255, 77, 0, 0.28);
 
-  --whatsapp: #25d366;
-  --whatsapp-hover: #20bd5a;
-
   --font-heading: 'Montserrat', system-ui, -apple-system, sans-serif;
   --font-body: 'Roboto', system-ui, -apple-system, sans-serif;
 
@@ -48,6 +45,10 @@
   --emblem-muted: #a0aab8;
   --emblem-fill: #1f242e;
   --emblem-grid: #2d3340;
+  --wa-float-bg: #ffffff;
+  --wa-float-color: #0c0e12;
+  --wa-float-hover-bg: #f1f5f9;
+  --wa-float-shadow: 0 10px 26px rgba(0, 0, 0, 0.45);
 }
 
 /* Tema Claro */
@@ -80,6 +81,10 @@
   --emblem-muted: #64748b;
   --emblem-fill: #cbd5e1;
   --emblem-grid: #94a3b8;
+  --wa-float-bg: #0c0e12;
+  --wa-float-color: #ffffff;
+  --wa-float-hover-bg: #1e2430;
+  --wa-float-shadow: 0 10px 26px rgba(17, 24, 39, 0.28);
 }
 
 /* Reset & Base */
@@ -947,13 +952,15 @@ svg {
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background-color: var(--whatsapp);
-  color: #ffffff;
+  background-color: var(--wa-float-bg);
+  color: var(--wa-float-color);
+  border: 1px solid var(--border-strong);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 10px 26px rgba(37, 211, 102, 0.42);
-  transition: transform var(--transition), background-color var(--transition);
+  box-shadow: var(--wa-float-shadow);
+  transition: transform var(--transition), background-color var(--transition),
+    color var(--transition), box-shadow var(--transition);
 }
 
 .whatsapp-float svg {
@@ -962,7 +969,7 @@ svg {
 }
 
 .whatsapp-float:hover {
-  background-color: var(--whatsapp-hover);
+  background-color: var(--wa-float-hover-bg);
   transform: scale(1.08);
 }
 
